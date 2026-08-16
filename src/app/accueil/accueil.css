@@ -1,0 +1,287 @@
+/* ===== Variables ===== */
+:host {
+  --green: #1B5E3F;
+  --green-dark: #123D29;
+  --gold: #C7952B;
+  --red: #A3382C;
+  --bg: #FAF9F5;
+  --panel: #FFFFFF;
+  --ink: #1B1E1C;
+  --muted: #5B615C;
+  --line: #E5E2D9;
+  display: block;
+}
+
+/* ===== Layout général ===== */
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  color: var(--ink);
+}
+
+.page-header {
+  background: linear-gradient(120deg, var(--green-dark), var(--green) 60%, var(--gold));
+  color: #F4F1E6;
+  padding: 40px 24px;
+}
+
+.header-content {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin-bottom: 8px;
+}
+
+.page-header h1 {
+  margin: 0 0 8px;
+  font-size: clamp(22px, 3.5vw, 32px);
+}
+
+.page-header p {
+  margin: 0;
+  opacity: 0.9;
+  max-width: 560px;
+}
+
+.page-body {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 24px;
+}
+
+/* La liste des ménages passe sur toute la largeur, en dessous */
+.list-card {
+  grid-column: 1 / -1;
+}
+
+/* ===== Cards génériques ===== */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.card h2 {
+  margin: 0 0 20px;
+  font-size: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.card h2 .count {
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ===== Formulaire ===== */
+.field {
+  margin-bottom: 18px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+label {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--green-dark);
+}
+
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--ink);
+  background: #FDFCF9;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(27, 94, 63, 0.12);
+}
+
+input.ng-invalid.ng-touched {
+  border-color: var(--red);
+}
+
+.error {
+  margin: 6px 0 0;
+  font-size: 12.5px;
+  color: var(--red);
+}
+
+button[type='submit'] {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+button[type='submit']:hover:not(:disabled) {
+  background: var(--green-dark);
+}
+
+button[type='submit']:disabled {
+  background: #C9C6BA;
+  cursor: not-allowed;
+}
+
+/* ===== Tableau de bord statistique ===== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.stat {
+  background: #F2F0E7;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-wide {
+  grid-column: 1 / -1;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stat-value {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--green-dark);
+  word-break: break-word;
+}
+
+/* ===== Liste des ménages ===== */
+.menages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.menage-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  background: #FDFCF9;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.menage-card:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+.menage-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.menage-card-header h3 {
+  margin: 0;
+  font-size: 15.5px;
+  color: var(--ink);
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.delete-btn:hover {
+  background: #FBEDEA;
+  color: var(--red);
+}
+
+.menage-zone {
+  margin: 4px 0 12px;
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.menage-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--muted);
+  padding: 32px 0;
+  font-size: 14px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 860px) {
+  .page-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header {
+    padding: 28px 16px;
+  }
+
+  .page-body {
+    padding: 24px 16px 60px;
+  }
+}

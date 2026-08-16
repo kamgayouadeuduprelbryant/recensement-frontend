@@ -1,0 +1,31 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+import { Menage, MenageRequest, Statistiques } from '../models/menage.model';
+import { environment } from '../../environnements/environnement';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MenageService {
+  private apiUrl = `${environment.apiUrl}/menages`;
+
+  constructor(private http: HttpClient) {}
+
+  creerMenage(menage: MenageRequest): Observable<Menage> {
+    return this.http.post<Menage>(this.apiUrl, menage);
+  }
+
+  listerMenages(): Observable<Menage[]> {
+    return this.http.get<Menage[]>(this.apiUrl);
+  }
+
+  supprimerMenage(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  obtenirStatistiques(): Observable<Statistiques> {
+    return this.http.get<Statistiques>(`${this.apiUrl}/statistiques`);
+  }
+}
