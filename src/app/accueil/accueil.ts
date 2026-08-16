@@ -18,6 +18,10 @@ export class Accueil implements OnInit {
   menages: Menage[] = [];
   statistiques?: Statistiques;
 
+  chargementMenages = true;
+  chargementStatistiques = true;
+  erreurChargement = false;
+
   constructor(
     private fb: FormBuilder,
     private menageService: MenageService,
@@ -38,16 +42,34 @@ export class Accueil implements OnInit {
   }
 
   chargerMenages(): void {
+    this.chargementMenages = true;
+    this.erreurChargement = false;
+
     this.menageService.listerMenages().subscribe({
-      next: (data) => (this.menages = data),
-      error: () => this.toastService.afficherErreur('Impossible de charger la liste des ménages')
+      next: (data) => {
+        this.menages = data;
+        this.chargementMenages = false;
+      },
+      error: () => {
+        this.chargementMenages = false;
+        this.erreurChargement = true;
+        this.toastService.afficherErreur('Impossible de charger la liste des ménages');
+      }
     });
   }
 
   chargerStatistiques(): void {
+    this.chargementStatistiques = true;
+
     this.menageService.obtenirStatistiques().subscribe({
-      next: (data) => (this.statistiques = data),
-      error: () => this.toastService.afficherErreur('Impossible de charger les statistiques')
+      next: (data) => {
+        this.statistiques = data;
+        this.chargementStatistiques = false;
+      },
+      error: () => {
+        this.chargementStatistiques = false;
+        this.toastService.afficherErreur('Impossible de charger les statistiques');
+      }
     });
   }
 

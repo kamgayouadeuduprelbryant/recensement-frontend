@@ -103,10 +103,15 @@
     </section>
 
     <!-- Tableau de bord statistique -->
-    <section class="card stats-card" *ngIf="statistiques">
+    <section class="card stats-card">
       <h2>Tableau de bord</h2>
 
-      <div class="stats-grid">
+      <div *ngIf="chargementStatistiques" class="loading-state">
+        <span class="spinner"></span>
+        Chargement des statistiques...
+      </div>
+
+      <div class="stats-grid" *ngIf="!chargementStatistiques && statistiques">
         <div class="stat">
           <span class="stat-label">Population totale</span>
           <span class="stat-value">{{ statistiques.populationTotale }}</span>
@@ -144,9 +149,19 @@
 
     <!-- Liste des ménages -->
     <section class="card list-card">
-      <h2>Ménages enregistrés <span class="count">({{ menages.length }})</span></h2>
+      <h2>Ménages enregistrés <span class="count" *ngIf="!chargementMenages">({{ menages.length }})</span></h2>
 
-      <div class="menages-grid" *ngIf="menages.length > 0; else empty">
+      <div *ngIf="chargementMenages" class="loading-state">
+        <span class="spinner"></span>
+        Réveil du serveur en cours, ça peut prendre jusqu'à une minute...
+      </div>
+
+      <div *ngIf="erreurChargement && !chargementMenages" class="error-state">
+        Impossible de charger les ménages.
+        <button (click)="chargerMenages()" class="retry-btn">Réessayer</button>
+      </div>
+
+      <div class="menages-grid" *ngIf="!chargementMenages && !erreurChargement && menages.length > 0">
         <div class="menage-card" *ngFor="let menage of menages">
           <div class="menage-card-header">
             <h3>{{ menage.chefMenage }}</h3>
@@ -163,9 +178,9 @@
         </div>
       </div>
 
-      <ng-template #empty>
-        <p class="empty-state">Aucun ménage enregistré pour le moment.</p>
-      </ng-template>
+      <p class="empty-state" *ngIf="!chargementMenages && !erreurChargement && menages.length === 0">
+        Aucun ménage enregistré pour le moment.
+      </p>
     </section>
 
   </div>
