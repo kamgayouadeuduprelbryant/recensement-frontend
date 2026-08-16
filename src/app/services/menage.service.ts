@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Menage, MenageRequest, Statistiques } from '../models/menage.model';
-import { environment } from '../../environnements/environnement';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
