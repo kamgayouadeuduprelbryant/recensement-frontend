@@ -1,188 +1,343 @@
 <div class="page">
 
-  <!-- En-tête -->
-  <header class="page-header">
-    <div class="header-content">
-      <span class="eyebrow">République du Cameroun</span>
-      <h1>Recensement National des Ménages</h1>
-      <p>Enregistrez les ménages recensés et suivez les statistiques en temps réel.</p>
-    </div>
+  <header class="header">
+
+    <p>République du Cameroun</p>
+
+    <h1>Recensement National des Ménages</h1>
+
+    <p>
+      Enregistrement des ménages et statistiques.
+    </p>
+
   </header>
 
-  <div class="page-body">
 
-    <!-- Formulaire de recensement -->
-    <section class="card form-card">
-      <h2>Nouveau ménage</h2>
+  <!-- FORMULAIRE -->
 
-      <form [formGroup]="menageForm" (ngSubmit)="onSubmit()">
+  <section class="card">
 
-        <div class="field">
-          <label for="chefMenage">Chef de ménage</label>
-          <input
-            id="chefMenage"
-            type="text"
-            formControlName="chefMenage"
-            placeholder="Ex : Fotso Jean"
-          />
-          <p class="error" *ngIf="menageForm.get('chefMenage')?.touched && menageForm.get('chefMenage')?.invalid">
-            <span *ngIf="menageForm.get('chefMenage')?.errors?.['required']">Le nom du chef de ménage est obligatoire.</span>
-            <span *ngIf="menageForm.get('chefMenage')?.errors?.['minlength']">Minimum 2 caractères.</span>
-            <span *ngIf="menageForm.get('chefMenage')?.errors?.['maxlength']">Maximum 100 caractères.</span>
-          </p>
-        </div>
+    <h2>Nouveau ménage</h2>
 
-        <div class="field">
-          <label for="zone">Zone</label>
-          <input
-            id="zone"
-            type="text"
-            formControlName="zone"
-            placeholder="Ex : Bonamoussadi"
-          />
-          <p class="error" *ngIf="menageForm.get('zone')?.touched && menageForm.get('zone')?.invalid">
-            <span *ngIf="menageForm.get('zone')?.errors?.['required']">La zone est obligatoire.</span>
-            <span *ngIf="menageForm.get('zone')?.errors?.['minlength']">Minimum 2 caractères.</span>
-            <span *ngIf="menageForm.get('zone')?.errors?.['maxlength']">Maximum 100 caractères.</span>
-          </p>
-        </div>
 
-        <div class="field-row">
-          <div class="field">
-            <label for="nombrePersonnes">Nombre de personnes</label>
-            <input
-              id="nombrePersonnes"
-              type="number"
-              formControlName="nombrePersonnes"
-              placeholder="Ex : 5"
-            />
-            <p class="error" *ngIf="menageForm.get('nombrePersonnes')?.touched && menageForm.get('nombrePersonnes')?.invalid">
-              <span *ngIf="menageForm.get('nombrePersonnes')?.errors?.['required']">Ce champ est obligatoire.</span>
-              <span *ngIf="menageForm.get('nombrePersonnes')?.errors?.['min']">Minimum 1 personne.</span>
-              <span *ngIf="menageForm.get('nombrePersonnes')?.errors?.['max']">Maximum 30 personnes.</span>
-            </p>
-          </div>
+    <form
+      [formGroup]="menageForm"
+      (ngSubmit)="onSubmit()"
+    >
 
-          <div class="field">
-            <label for="ageMoyen">Âge moyen</label>
-            <input
-              id="ageMoyen"
-              type="number"
-              step="0.1"
-              formControlName="ageMoyen"
-              placeholder="Ex : 34.5"
-            />
-            <p class="error" *ngIf="menageForm.get('ageMoyen')?.touched && menageForm.get('ageMoyen')?.invalid">
-              <span *ngIf="menageForm.get('ageMoyen')?.errors?.['required']">Ce champ est obligatoire.</span>
-              <span *ngIf="menageForm.get('ageMoyen')?.errors?.['min']">L'âge ne peut pas être négatif.</span>
-              <span *ngIf="menageForm.get('ageMoyen')?.errors?.['max']">Valeur trop élevée (max 120).</span>
-            </p>
-          </div>
-        </div>
+      <div class="field">
+
+        <label>Chef de ménage</label>
+
+        <input
+          type="text"
+          formControlName="chefMenage"
+          placeholder="Ex : Fotso Jean"
+        >
+
+        <small
+          *ngIf="
+            menageForm.get('chefMenage')?.touched &&
+            menageForm.get('chefMenage')?.invalid
+          "
+        >
+          Le chef de ménage est obligatoire.
+        </small>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>Zone</label>
+
+        <input
+          type="text"
+          formControlName="zone"
+          placeholder="Ex : Bonamoussadi"
+        >
+
+        <small
+          *ngIf="
+            menageForm.get('zone')?.touched &&
+            menageForm.get('zone')?.invalid
+          "
+        >
+          La zone est obligatoire.
+        </small>
+
+      </div>
+
+
+      <div class="row">
 
         <div class="field">
-          <label for="typeLogement">Type de logement</label>
+
+          <label>Nombre de personnes</label>
+
           <input
-            id="typeLogement"
-            type="text"
-            formControlName="typeLogement"
-            placeholder="Ex : Maison, Appartement, Case"
-          />
-          <p class="error" *ngIf="menageForm.get('typeLogement')?.touched && menageForm.get('typeLogement')?.invalid">
-            <span *ngIf="menageForm.get('typeLogement')?.errors?.['required']">Le type de logement est obligatoire.</span>
-            <span *ngIf="menageForm.get('typeLogement')?.errors?.['minlength']">Minimum 2 caractères.</span>
-            <span *ngIf="menageForm.get('typeLogement')?.errors?.['maxlength']">Maximum 50 caractères.</span>
-          </p>
+            type="number"
+            formControlName="nombrePersonnes"
+          >
+
         </div>
 
-        <button type="submit" [disabled]="menageForm.invalid">
-          Enregistrer le ménage
+
+        <div class="field">
+
+          <label>Âge moyen</label>
+
+          <input
+            type="number"
+            step="0.1"
+            formControlName="ageMoyen"
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>Type de logement</label>
+
+        <input
+          type="text"
+          formControlName="typeLogement"
+          placeholder="Maison"
+        >
+
+      </div>
+
+
+      <button
+        type="submit"
+        [disabled]="menageForm.invalid || chargement"
+      >
+
+        {{ chargement
+          ? 'Enregistrement...'
+          : 'Enregistrer le ménage'
+        }}
+
+      </button>
+
+    </form>
+
+
+    <p
+      class="success"
+      *ngIf="message"
+    >
+      {{ message }}
+    </p>
+
+
+    <p
+      class="error"
+      *ngIf="erreur"
+    >
+      {{ erreur }}
+    </p>
+
+  </section>
+
+
+  <!-- STATISTIQUES -->
+
+  <section class="card">
+
+    <h2>Statistiques</h2>
+
+
+    <div
+      *ngIf="statistiques"
+      class="stats"
+    >
+
+      <div class="stat">
+
+        <strong>
+          {{ statistiques.populationTotale }}
+        </strong>
+
+        <span>
+          Population totale
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <strong>
+          {{ statistiques.nombreMenages }}
+        </strong>
+
+        <span>
+          Ménages enregistrés
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <strong>
+          {{ statistiques.tailleMoyenneMenage }}
+        </strong>
+
+        <span>
+          Taille moyenne
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <strong>
+          {{ statistiques.zonePlusPeuplee }}
+        </strong>
+
+        <span>
+          Zone la plus peuplée
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <strong>
+          {{ statistiques.zoneAgeMoyenLePlusBas }}
+        </strong>
+
+        <span>
+          Âge moyen le plus bas
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <strong>
+          {{ statistiques.zoneAgeMoyenLePlusEleve }}
+        </strong>
+
+        <span>
+          Âge moyen le plus élevé
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <strong>
+          {{ statistiques.zoneTauxSurpeuplementLePlusEleve }}
+        </strong>
+
+        <span>
+          Zone la plus surpeuplée
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <strong>
+          {{ statistiques.typeLogementDominantParZone }}
+        </strong>
+
+        <span>
+          Logement dominant
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <p *ngIf="!statistiques">
+      Chargement des statistiques...
+    </p>
+
+  </section>
+
+
+  <!-- MENAGES -->
+
+  <section class="card">
+
+    <h2>
+      Ménages enregistrés
+      ({{ menages.length }})
+    </h2>
+
+
+    <div
+      *ngIf="menages.length === 0"
+    >
+
+      Aucun ménage enregistré.
+
+    </div>
+
+
+    <div
+      class="menages"
+      *ngIf="menages.length > 0"
+    >
+
+      <div
+        class="menage"
+        *ngFor="let menage of menages"
+      >
+
+        <div>
+
+          <h3>
+            {{ menage.chefMenage }}
+          </h3>
+
+          <p>
+            Zone : {{ menage.zone }}
+          </p>
+
+          <p>
+            {{ menage.nombrePersonnes }}
+            personne(s)
+          </p>
+
+          <p>
+            Âge moyen :
+            {{ menage.ageMoyen }}
+            ans
+          </p>
+
+          <p>
+            Logement :
+            {{ menage.typeLogement }}
+          </p>
+
+        </div>
+
+
+        <button
+          class="delete"
+          (click)="supprimer(menage.id)"
+        >
+          Supprimer
         </button>
 
-      </form>
-    </section>
-
-    <!-- Tableau de bord statistique -->
-    <section class="card stats-card">
-      <h2>Tableau de bord</h2>
-
-      <div *ngIf="chargementStatistiques" class="loading-state">
-        <span class="spinner"></span>
-        Chargement des statistiques...
       </div>
 
-      <div class="stats-grid" *ngIf="!chargementStatistiques && statistiques">
-        <div class="stat">
-          <span class="stat-label">Population totale</span>
-          <span class="stat-value">{{ statistiques.populationTotale }}</span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">Ménages enregistrés</span>
-          <span class="stat-value">{{ statistiques.nombreMenages }}</span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">Taille moyenne d'un ménage</span>
-          <span class="stat-value">{{ statistiques.tailleMoyenneMenage }}</span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">Zone la plus peuplée</span>
-          <span class="stat-value">{{ statistiques.zonePlusPeuplee }}</span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">Âge moyen le plus bas</span>
-          <span class="stat-value">{{ statistiques.zoneAgeMoyenLePlusBas }}</span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">Âge moyen le plus élevé</span>
-          <span class="stat-value">{{ statistiques.zoneAgeMoyenLePlusEleve }}</span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">Zone la plus surpeuplée</span>
-          <span class="stat-value">{{ statistiques.zoneTauxSurpeuplementLePlusEleve }}</span>
-        </div>
-        <div class="stat stat-wide">
-          <span class="stat-label">Logement dominant par zone</span>
-          <span class="stat-value">{{ statistiques.typeLogementDominantParZone }}</span>
-        </div>
-      </div>
-    </section>
+    </div>
 
-    <!-- Liste des ménages -->
-    <section class="card list-card">
-      <h2>Ménages enregistrés <span class="count" *ngIf="!chargementMenages">({{ menages.length }})</span></h2>
-
-      <div *ngIf="chargementMenages" class="loading-state">
-        <span class="spinner"></span>
-        Réveil du serveur en cours, ça peut prendre jusqu'à une minute...
-      </div>
-
-      <div *ngIf="erreurChargement && !chargementMenages" class="error-state">
-        Impossible de charger les ménages.
-        <button (click)="chargerMenages()" class="retry-btn">Réessayer</button>
-      </div>
-
-      <div class="menages-grid" *ngIf="!chargementMenages && !erreurChargement && menages.length > 0">
-        <div class="menage-card" *ngFor="let menage of menages">
-          <div class="menage-card-header">
-            <h3>{{ menage.chefMenage }}</h3>
-            <button class="delete-btn" (click)="supprimer(menage.id)" title="Supprimer ce ménage">
-              &times;
-            </button>
-          </div>
-          <p class="menage-zone">{{ menage.zone }}</p>
-          <div class="menage-details">
-            <span>{{ menage.nombrePersonnes }} personne(s)</span>
-            <span>Âge moyen : {{ menage.ageMoyen }} ans</span>
-            <span>{{ menage.typeLogement }}</span>
-          </div>
-        </div>
-      </div>
-
-      <p class="empty-state" *ngIf="!chargementMenages && !erreurChargement && menages.length === 0">
-        Aucun ménage enregistré pour le moment.
-      </p>
-    </section>
-
-  </div>
+  </section>
 
 </div>
