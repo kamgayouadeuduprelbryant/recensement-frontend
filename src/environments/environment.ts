@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
-  apiUrl: 'https://recensement-backend.onrender.com/api'
+  production: false,
+  apiUrl: 'https://pays-pdnv.onrender.com/api'
 };

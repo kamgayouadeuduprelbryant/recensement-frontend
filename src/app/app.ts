@@ -1,13 +1,31 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Accueil } from './accueil/accueil';
+import { AuthService, Utilisateur } from './service.ts/service';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Accueil],
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('recensement');
+export class App implements OnInit{utilisateur?: Utilisateur;
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.authService.obtenirUtilisateurConnecte().subscribe({
+      next: (data) => (this.utilisateur = data),
+      error: () => (this.utilisateur = { connecte: false })
+    });
+  }
+
+  seConnecter(): void {
+    this.authService.seConnecter();
+  }
+
+  seDeconnecter(): void {
+    this.authService.seDeconnecter();
+  }
 }

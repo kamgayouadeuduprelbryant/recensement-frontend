@@ -1,1 +1,10 @@
-<app-accueil></app-accueil>
+<div class="auth-bar">
+  <ng-container *ngIf="utilisateur?.connecte; else nonConnecte">
+    <img [src]="utilisateur?.photo" alt="" class="avatar" />
+    <span>{{ utilisateur?.nom }}</span>
+    <button (click)="seDeconnecter()">Se déconnecter</button>
+  </ng-container>
+  <ng-template #nonConnecte>
+    <button (click)="seConnecter()">Se connecter avec Google</button>
+  </ng-template>
+</div>
